@@ -1,45 +1,73 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { View, Text, StyleSheet, TextInput, Keyboard, Button, Alert, TouchableOpacity } from 'react-native';
+import CompInputText from '../../components/CompInputText';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Config from 'react-native-config';
+import CryptoJS from 'crypto-js';
+import axios from 'axios';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen =  () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log("email", email)
-  console.log("password", password)
+  connectDevApi = async () => {
+    console.log("connect")
+   await fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json))
 
-  const handleLogin = () => {
-    // Alert.alert('Alert Title', 'My Alert Msg', [
-    //   {
-    //     text: 'Cancel',
-    //     onPress: () => console.log('Cancel Pressed'),
-    //     style: 'cancel',
-    //   },
-    //   {text: 'OK', onPress: () => console.log('OK Pressed')},
-    // ]);
-    // if (email == '' || password == '') {
-    //   Alert.alert('Alert Title', 'Input your email and password')
-    // } else {
-    //   if (email == 'ryan' && password == '1234') {
-    //     console.log("logged in");
-    //     navigation.navigate('Home');
-    //   } else {
-    //     console.log("User not found")
-    //   }
-    // }
-    navigation.navigate('Home');
+      console.log( result)
+  }
+
+  handleLogin = async () => {
+
+    const dataLogin = {
+      email: 'dratnatiwi@gmail.com',
+      pass: 'Adira2023',
+      recaptcha: false,
+    };
+
+    const secretKey = Config.MOMOTOR_VARIABLE
+
+    let datass = JSON.stringify(dataLogin)
+
+    let encryptData = CryptoJS.AES.encrypt(datass, secretKey).toString();
+
+    let secureData = JSON.stringify({
+      dataLogin: encryptData
+    })
+
+    const requestOptionsModel = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: secureData
+    };
+    
+
+    console.log("request", requestOptionsModel)
+
+    const loginResponse =  await fetch(`${Config.MOMOTOR_API}/dealers/login`, requestOptionsModel)
+      .then(response => response.json())
+      .then(data => responseLogin = data.data)
+      .catch(error => console.log(error))
+
+      console.log(loginResponse)
 
   }
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Login</Text>
-      <TextInput style={styles.TextInput} defaultValue={email} onChangeText={value => setEmail(value)} label="Email" placeholder='Email' />
-      <TextInput style={styles.TextInput} defaultValue={password} onChangeText={value => setPassword(value)} label="Password" placeholder='Password' secureTextEntry />
-      <Button title='Login' onPress={handleLogin} />
+      <TextInput style={styles.TextInput} onChangeText={(email) => setEmail(email)} name="user" placeholder='Email' />
+      <TextInput style={styles.TextInput} onChangeText={(password) => setPassword(password)} secureTextEntry name="password" placeholder='Password' />
+      <TouchableOpacity onPress={connectDevApi}>
+        <Text style={styles.ButtonLogin}>Login</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -48,13 +76,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    gap: 10
+    gap: 10,
+    backgroundColor: 'white'
   },
   TextInput: {
     borderWidth: 1,
+    backgroundColor: "#FFF",
     borderColor: "#DDD",
     paddingHorizontal: 16
 
+  },
+  ButtonLogin: {
+    width: '100%',
+    backgroundColor: 'blue',
+    paddingVertical: 16,
+    color: '#FFF',
+    textAlign: 'center',
   }
 })
 

@@ -1,36 +1,16 @@
 
 const fontFamily = {
-  robotoRegular: 'Roboto-Regular',
-  gothamBold: 'Gotham-Bold',
-  robotoBold: 'Roboto-Bold',
-  gothamMedium: 'Gotham-Medium',
-  gothamLight: 'Gotham-Light',
-  montserratRegular: 'Montserrat-Regular',
-  montserratBold: 'Montserrat-Bold',
+  InterRegular: 'Inter-Regular',
+  InterBold: 'Inter-Bold',
 }
 
 // Font Size Classes
 const Fonts = {
-  montserratRegular : {
-    fontFamily : fontFamily.montserratRegular
+  InterRegular : {
+    fontFamily : fontFamily.InterRegular
   },
-  montserratBold: {
-    fontFamily: fontFamily.montserratBold
-  },
-  robotoRegular: {
-    fontFamily: fontFamily.robotoRegular
-  },
-  robotoBold: {
-    fontFamily: fontFamily.robotoBold
-  },
-  gothamBold: {
-    fontFamily: fontFamily.gothamBold
-  },
-  gothamMedium: {
-    fontFamily: fontFamily.gothamMedium
-  },
-  gothamLight: {
-    fontFamily: fontFamily.gothamLight
+  InterBold: {
+    fontFamily: fontFamily.InterBold
   }
 };
 

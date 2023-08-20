@@ -18,10 +18,10 @@ const Taksasi = () => {
   
   return (
     <NavigationContainer independent={true}>
-      <Stack.Navigator initialRouteName="DataCustomer">
-        <Stack.Screen options={{ headerShown: false}} name='DataCustomer' component={DataCustomer} />
+      <Stack.Navigator initialRouteName="DataMotor">
+        {/* <Stack.Screen options={{ headerShown: false}} name='DataCustomer' component={DataCustomer} /> */}
         <Stack.Screen options={{ headerShown: false}} name='DataMotor' component={DataMotor} />
-        <Stack.Screen options={{ headerShown: false}} name='Option' component={DataMotorOption} />
+        {/* <Stack.Screen options={{ headerShown: false}} name='Option' component={DataMotorOption} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   )
